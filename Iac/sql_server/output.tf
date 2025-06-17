@@ -16,6 +16,7 @@ output "username" {
 output "password" {
   description = "Senha SQL Server"
   value       = var.password
+  sensitive   = true
 }
 
 output "public_ip" {

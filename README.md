@@ -16,7 +16,7 @@ Repositorio do projeto final da disciplina de Engenharia de Dados do curso de En
 
 | Categoria        | Ferramenta               |
 |------------------|--------------------------|
-| Banco de Dados   | **SQL Server**           |
+| Banco de Dados   | **Azure SQL Database**           |
 | Orquestração     | **Azure Data Factory**   |
 | Processamento    | **Azure Databricks**     |
 | Armazenamento    | **Azure Data Lake Storage Gen2** |
