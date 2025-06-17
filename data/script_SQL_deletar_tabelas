@@ -1,0 +1,24 @@
+-- 1. Dropar todas as constraints de FK no schema 'relacional'
+DECLARE @sql NVARCHAR(MAX) = N'';
+
+SELECT @sql += 'ALTER TABLE ' + QUOTENAME(s.name) + '.' + QUOTENAME(t.name) +
+               ' DROP CONSTRAINT ' + QUOTENAME(fk.name) + ';' + CHAR(13)
+FROM sys.foreign_keys fk
+INNER JOIN sys.tables t ON fk.parent_object_id = t.object_id
+INNER JOIN sys.schemas s ON t.schema_id = s.schema_id
+WHERE s.name = 'relacional';
+
+EXEC sp_executesql @sql;
+
+-- 2. Dropar todas as tabelas do schema 'relacional'
+SET @sql = '';
+
+SELECT @sql += 'DROP TABLE ' + QUOTENAME(s.name) + '.' + QUOTENAME(t.name) + ';' + CHAR(13)
+FROM sys.tables t
+INNER JOIN sys.schemas s ON t.schema_id = s.schema_id
+WHERE s.name = 'relacional';
+
+EXEC sp_executesql @sql;
+
+-- 3. Dropar o schema relacional
+DROP SCHEMA relacional;
