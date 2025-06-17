@@ -1,0 +1,59 @@
+site_name: Documentação do Projeto
+
+repo_url: https://github.com/pauloFrancisconi/ABP-eng-dados
+repo_name: GitHub
+
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.top
+    - content.code.copy
+    - content.action.edit
+    - content.tabs.link
+    - search.highlight
+    - search.share
+    - navigation.expand
+  palette:
+    - scheme: default
+      primary: blue gray
+      accent: amber
+    - scheme: slate
+      primary: cyan
+      accent: lime
+      toggle:
+        icon: material/weather-night
+        name: Modo escuro
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+nav:
+  - Início: index.md
+  - Arquitetura:
+      - Visão Geral: arquitetura.md
+      - Banco de Dados e Diagramas ER: database.md
+  - Provisionamento:
+      - Infraestrutura como Código (Terraform): iac.md
+  - Pipeline de Dados:
+      - Criação de Dados com Faker: faker.md
+      - Notebooks no Databricks (ETL): notebooks.md
+      - Gerindo Azure Databricks: azdabri.md
+      - Pipelines no Azure Data Factory: 
+          - Configuração Azure Data Factory: adf-config.md
+          - Pipeline Azure Data Factory: adf-pipeline.md
+  - Visualização:
+      - Dashboard no Power BI: powerbi.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - codehilite
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.details
