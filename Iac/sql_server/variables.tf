@@ -6,7 +6,7 @@ variable "resource_group_name" {
 variable "location" {
   description = "Região da Azure onde os recursos serão provisionados"
   type        = string
-  default     = "East US"
+  default     = "westus"
 }
 
 variable "subscription_id" {
