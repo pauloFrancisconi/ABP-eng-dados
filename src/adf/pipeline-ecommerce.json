@@ -1,0 +1,208 @@
+{
+    "name": "pipeline1",
+    "properties": {
+        "activities": [
+            {
+                "name": "Set variable1",
+                "type": "SetVariable",
+                "dependsOn": [],
+                "policy": {
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "tabelas1",
+                    "value": [
+                        "relacional.clientes",
+                        "relacional.vendedores",
+                        "relacional.enderecos_cliente",
+                        "relacional.categorias",
+                        "relacional.produtos",
+                        "relacional.estoque",
+                        "relacional.pedidos",
+                        "relacional.itens_pedido",
+                        "relacional.formas_pagamento",
+                        "relacional.pagamentos",
+                        "relacional.transportadoras",
+                        "relacional.entregas",
+                        "relacional.avaliacoes"
+                    ]
+                }
+            },
+            {
+                "name": "ForEach1",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "Set variable1",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@variables('tabelas1')",
+                        "type": "Expression"
+                    },
+                    "isSequential": true,
+                    "activities": [
+                        {
+                            "name": "extract_sql_server1",
+                            "type": "Copy",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "AzureSqlSource",
+                                    "sqlReaderQuery": {
+                                        "value": "SELECT * FROM @{item()}\n",
+                                        "type": "Expression"
+                                    },
+                                    "queryTimeout": "02:00:00",
+                                    "partitionOption": "None"
+                                },
+                                "sink": {
+                                    "type": "DelimitedTextSink",
+                                    "storeSettings": {
+                                        "type": "AzureBlobFSWriteSettings"
+                                    },
+                                    "formatSettings": {
+                                        "type": "DelimitedTextWriteSettings",
+                                        "quoteAllText": true,
+                                        "fileExtension": ".txt"
+                                    }
+                                },
+                                "enableStaging": false,
+                                "translator": {
+                                    "type": "TabularTranslator",
+                                    "typeConversion": true,
+                                    "typeConversionSettings": {
+                                        "allowDataTruncation": true,
+                                        "treatBooleanAsNumber": false
+                                    }
+                                }
+                            },
+                            "inputs": [
+                                {
+                                    "referenceName": "DS_SQL_Parametro",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "tabela_nome": "@item()"
+                                    }
+                                }
+                            ],
+                            "outputs": [
+                                {
+                                    "referenceName": "DS_DEST_CSV",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "nome_arquivo": "@trim(item())"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "notebook_bronze",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "ForEach1",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Users/pauloffrancisconi@outlook.com/notebooks/notebook_bronze_prod"
+                },
+                "linkedServiceName": {
+                    "referenceName": "AzureDatabricks",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "notebook_silver",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "notebook_bronze",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Users/pauloffrancisconi@outlook.com/notebooks/notebook_silver"
+                },
+                "linkedServiceName": {
+                    "referenceName": "AzureDatabricks",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "notebook_gold",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "notebook_silver",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Users/pauloffrancisconi@outlook.com/notebooks/notebook_gold"
+                },
+                "linkedServiceName": {
+                    "referenceName": "AzureDatabricks",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ],
+        "variables": {
+            "tabelas1": {
+                "type": "Array"
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2025-06-16T02:56:39Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

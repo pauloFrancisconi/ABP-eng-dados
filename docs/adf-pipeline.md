@@ -100,4 +100,6 @@ A primeira atividade da pipeline é definir uma **variável do tipo array** com 
 - O pipeline pode ser agendado ou executado manualmente.
 - Todas as dependências (Linked Services, Datasets, e Notebooks) devem estar previamente criadas.
 
+Você pode encontrar todos os JSONs das atividades e pipeline em `src/adf/pipeline`. Lembre-se, os valores das variáveis e caminhos podem alterar no seu ambiente.
+
 ---
