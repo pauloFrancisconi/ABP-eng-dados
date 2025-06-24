@@ -26,6 +26,7 @@ Este projeto consiste em uma arquitetura de engenharia de dados na nuvem utiliza
 - [Banco de Dados e Diagramas ER](database.md)
 - [Criação de Dados com Faker](faker.md)
 - [Notebooks do Databricks (ETL)](notebooks.md)
+- [Azure Databricks](azdabri.md)
 - [Pipelines no Azure Data Factory - Configuração](adf-config.md)
 - [Pipelines no Azure Data Factory - Pipeline](adf-pipeline.md)
 - [Dashboard no Power BI](powerbi.md)
