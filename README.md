@@ -24,9 +24,6 @@ Repositorio do projeto final da disciplina de Engenharia de Dados do curso de En
 
 
 
-```
-
-```
 
 ## Instalação
 
@@ -42,22 +39,31 @@ cd ABP-eng-dados
 
 ## Documentação (MkDocs)
 
-Toda a documentação está em `docs/`:
+Toda a documentação está em `docs/`: (link docks)
 
 
 ## Versão
 
-Fale sobre a versão e o controle de versões para o projeto. 
+Versão do projeto: 1.0
 
 ## Autores
 
-
+ALEXANDRE DESTRO ZANONI - https://github.com/AlexandreDestro
+GABRIEL MILANO ALVES - https://github.com/gabrielmilano
+GABRIEL RONA GUZZATTI - https://github.com/Guzzatti
+GUSTAVO NESKOVEK GOULART - https://github.com/gosttavo
+JOÃO DANIEL DE LIZ - 
+PAULO RONCHI FRANCISCONI - https://github.com/pauloFrancisconi
 
 
 ## Licença
 
-
+Este projeto está sob a licença (MIT license) - veja o arquivo LICENSE para detalhes.
 
 ## Referências
 
-Cite aqui todas as referências utilizadas neste projeto, pode ser outros repositórios, livros, artigos de internet etc.
+https://github.com/jlsilva01/projeto-ed-satc.git
+https://learn.microsoft.com/pt-br/azure/azure-sql/?view=azuresql
+https://learn.microsoft.com/pt-br/azure/data-factory/
+https://learn.microsoft.com/pt-br/azure/databricks/
+https://learn.microsoft.com/pt-br/azure/storage/blobs/data-lake-storage-introduction
