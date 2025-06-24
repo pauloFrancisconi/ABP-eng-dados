@@ -14,4 +14,4 @@ Este projeto utiliza uma arquitetura moderna baseada em serviços gerenciados da
 
 ## Diagrama da Arquitetura
 
-![Diagrama da Arquitetura](../assets/diagrama-arquitetura.png)
+![Diagrama da Arquitetura](../assets/diagrama_arquitetura.png)

@@ -1,0 +1,1337 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../database/">
+      
+      
+        <link rel="next" href="../faker/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Infraestrutura como Código (Terraform) - Documentação do Projeto</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-gray" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#infraestrutura-como-codigo-iac-com-terraform" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="Documentação do Projeto" class="md-header__button md-logo" aria-label="Documentação do Projeto" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentação do Projeto
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Infraestrutura como Código (Terraform)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-gray" data-md-color-accent="amber"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="lime"  aria-label="Modo escuro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo escuro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Compartilhar" aria-label="Compartilhar" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pauloFrancisconi/ABP-eng-dados" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Documentação do Projeto" class="md-nav__button md-logo" aria-label="Documentação do Projeto" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentação do Projeto
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pauloFrancisconi/ABP-eng-dados" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Início
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Arquitetura
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Arquitetura
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arquitetura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Visão Geral
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Banco de Dados e Diagramas ER
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Provisionamento
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Provisionamento
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Infraestrutura como Código (Terraform)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Infraestrutura como Código (Terraform)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-dos-modulos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estrutura dos Módulos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-executar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Como executar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como executar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-requisitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pré-requisitos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#passos-para-provisionar-cada-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passos para provisionar cada módulo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comandos-gerais-para-cada-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comandos gerais para cada módulo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplos-do-arquivo-terraformtfvars" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemplos do arquivo terraform.tfvars
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemplos do arquivo terraform.tfvars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resource_group" class="md-nav__link">
+    <span class="md-ellipsis">
+      resource_group
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_server" class="md-nav__link">
+    <span class="md-ellipsis">
+      sql_server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#az_databricks" class="md-nav__link">
+    <span class="md-ellipsis">
+      az_databricks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adls" class="md-nav__link">
+    <span class="md-ellipsis">
+      adls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adf" class="md-nav__link">
+    <span class="md-ellipsis">
+      adf
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autenticacao-no-azure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autenticação no Azure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-obter-os-valores-para-o-terraformtfvars" class="md-nav__link">
+    <span class="md-ellipsis">
+      Como obter os valores para o terraform.tfvars
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como obter os valores para o terraform.tfvars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subscription_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      subscription_id
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource_group_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      resource_group_name
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    <span class="md-ellipsis">
+      location
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure_client_id-azure_client_secret-e-azure_tenant_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      azure_client_id, azure_client_secret e azure_tenant_id
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consideracoes-finais" class="md-nav__link">
+    <span class="md-ellipsis">
+      Considerações finais
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Pipeline de Dados
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Pipeline de Dados
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Criação de Dados com Faker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Notebooks no Databricks (ETL)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azdabri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gerindo Azure Databricks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Pipelines no Azure Data Factory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Pipelines no Azure Data Factory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adf-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuração Azure Data Factory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adf-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pipeline Azure Data Factory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Visualização
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Visualização
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../powerbi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dashboard no Power BI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-dos-modulos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estrutura dos Módulos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-executar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Como executar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como executar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-requisitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pré-requisitos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#passos-para-provisionar-cada-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passos para provisionar cada módulo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comandos-gerais-para-cada-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comandos gerais para cada módulo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplos-do-arquivo-terraformtfvars" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemplos do arquivo terraform.tfvars
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemplos do arquivo terraform.tfvars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resource_group" class="md-nav__link">
+    <span class="md-ellipsis">
+      resource_group
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_server" class="md-nav__link">
+    <span class="md-ellipsis">
+      sql_server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#az_databricks" class="md-nav__link">
+    <span class="md-ellipsis">
+      az_databricks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adls" class="md-nav__link">
+    <span class="md-ellipsis">
+      adls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adf" class="md-nav__link">
+    <span class="md-ellipsis">
+      adf
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autenticacao-no-azure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autenticação no Azure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-obter-os-valores-para-o-terraformtfvars" class="md-nav__link">
+    <span class="md-ellipsis">
+      Como obter os valores para o terraform.tfvars
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como obter os valores para o terraform.tfvars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subscription_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      subscription_id
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource_group_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      resource_group_name
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    <span class="md-ellipsis">
+      location
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure_client_id-azure_client_secret-e-azure_tenant_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      azure_client_id, azure_client_secret e azure_tenant_id
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consideracoes-finais" class="md-nav__link">
+    <span class="md-ellipsis">
+      Considerações finais
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/pauloFrancisconi/ABP-eng-dados/edit/master/docs/iac.md" title="Editar esta página" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="infraestrutura-como-codigo-iac-com-terraform">Infraestrutura como Código (IaC) com Terraform<a class="headerlink" href="#infraestrutura-como-codigo-iac-com-terraform" title="Permanent link">&para;</a></h1>
+<p>Este projeto utiliza Terraform para provisionar a infraestrutura na Azure, adotando uma abordagem modular. Cada módulo está isolado em sua própria pasta e deve ser aplicado separadamente.</p>
+<hr />
+<h2 id="estrutura-dos-modulos">Estrutura dos Módulos<a class="headerlink" href="#estrutura-dos-modulos" title="Permanent link">&para;</a></h2>
+<p>Cada pasta representa um módulo de infraestrutura:</p>
+<ul>
+<li><code>resource_group/</code> — Grupo de recursos no Azure  </li>
+<li><code>sql_server/</code> — Azure SQL Database</li>
+<li><code>adls/</code> — Azure Data Lake Storage  </li>
+<li><code>az_databricks/</code> — Azure Databricks  </li>
+<li><code>adf/</code> — Azure Data Factory  </li>
+</ul>
+<hr />
+<h2 id="como-executar">Como executar<a class="headerlink" href="#como-executar" title="Permanent link">&para;</a></h2>
+<h3 id="pre-requisitos">Pré-requisitos<a class="headerlink" href="#pre-requisitos" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Azure CLI  </li>
+<li>Terraform  </li>
+<li>Conta Azure com permissões adequadas  </li>
+</ul>
+<hr />
+<h3 id="passos-para-provisionar-cada-modulo">Passos para provisionar cada módulo<a class="headerlink" href="#passos-para-provisionar-cada-modulo" title="Permanent link">&para;</a></h3>
+<p>Para provisionar os recursos, você deve entrar em cada pasta de módulo e executar os comandos do Terraform individualmente. Por exemplo, para o módulo <code>resource_group</code>:</p>
+<div class="highlight"><pre><span></span><code>cd resource_group  
+terraform init  
+terraform plan -var-file=&quot;../terraform.tfvars&quot;  
+terraform apply -var-file=&quot;../terraform.tfvars&quot;  
+</code></pre></div>
+<p>Repita esses passos para cada módulo (<code>sql_server</code>, <code>adls</code>, <code>az_databricks</code>, <code>adf</code>), sempre navegando para a respectiva pasta antes de executar os comandos.</p>
+<hr />
+<h3 id="comandos-gerais-para-cada-modulo">Comandos gerais para cada módulo<a class="headerlink" href="#comandos-gerais-para-cada-modulo" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>terraform init  
+terraform plan -var-file=&quot;../terraform.tfvars&quot;  
+terraform apply -var-file=&quot;../terraform.tfvars&quot;  
+</code></pre></div>
+<hr />
+<h2 id="exemplos-do-arquivo-terraformtfvars">Exemplos do arquivo terraform.tfvars<a class="headerlink" href="#exemplos-do-arquivo-terraformtfvars" title="Permanent link">&para;</a></h2>
+<p>Aqui estão exemplos fictícios de valores para cada módulo no arquivo <code>terraform.tfvars</code>:</p>
+<h3 id="resource_group">resource_group<a class="headerlink" href="#resource_group" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>resource_group_name = &quot;rg-exemplo-projeto&quot;  
+location            = &quot;eastus&quot;  
+</code></pre></div>
+<hr />
+<h3 id="sql_server">sql_server<a class="headerlink" href="#sql_server" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>subscription_id     = &quot;12345678-1234-1234-1234-123456789abc&quot;  
+resource_group_name = &quot;rg-exemplo-projeto&quot;  
+usuario_admin       = &quot;admin_exemplo&quot;  
+password            = &quot;SenhaForte!2025&quot;  
+</code></pre></div>
+<hr />
+<h3 id="az_databricks">az_databricks<a class="headerlink" href="#az_databricks" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>azure_client_id     = &quot;aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee&quot;  
+azure_client_secret = &quot;AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVv&quot;  
+azure_tenant_id     = &quot;ffffffff-1111-2222-3333-444444444444&quot;  
+workspace_name      = &quot;ws-exemplo-databricks&quot;  
+subscription_id     = &quot;12345678-1234-1234-1234-123456789abc&quot;  
+resource_group_name = &quot;rg-exemplo-projeto&quot;  
+</code></pre></div>
+<hr />
+<h3 id="adls">adls<a class="headerlink" href="#adls" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>subscription_id     = &quot;12345678-1234-1234-1234-123456789abc&quot;  
+resource_group_name = &quot;rg-exemplo-projeto&quot;  
+</code></pre></div>
+<hr />
+<h3 id="adf">adf<a class="headerlink" href="#adf" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>resource_group_name = &quot;rg-exemplo-projeto&quot;  
+data_factory_name   = &quot;adf-exemplo-projeto&quot;  
+</code></pre></div>
+<hr />
+<h2 id="autenticacao-no-azure">Autenticação no Azure<a class="headerlink" href="#autenticacao-no-azure" title="Permanent link">&para;</a></h2>
+<p>Antes de iniciar o provisionamento, é necessário autenticar na sua conta Azure usando o Azure CLI:</p>
+<div class="highlight"><pre><span></span><code>az login  
+</code></pre></div>
+<p>Esse comando abrirá uma janela no navegador para login. Após logado, você poderá executar comandos <code>az</code> para consultar os recursos e configurar variáveis no <code>terraform.tfvars</code>.</p>
+<hr />
+<h2 id="como-obter-os-valores-para-o-terraformtfvars">Como obter os valores para o terraform.tfvars<a class="headerlink" href="#como-obter-os-valores-para-o-terraformtfvars" title="Permanent link">&para;</a></h2>
+<p>Use os comandos abaixo para descobrir os valores usados nas variáveis dos módulos:</p>
+<h3 id="subscription_id">subscription_id<a class="headerlink" href="#subscription_id" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>az account show --query id -o tsv  
+</code></pre></div>
+<h3 id="resource_group_name">resource_group_name<a class="headerlink" href="#resource_group_name" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>az group list --query &quot;[].name&quot; -o tsv  
+</code></pre></div>
+recomendado utilizar o mesmo grupo de recursos para todos os serviços provisionados.</p>
+<h3 id="location">location<a class="headerlink" href="#location" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>az account list-locations --query &quot;[].{Region:name}&quot; -o table  
+</code></pre></div>
+<h3 id="azure_client_id-azure_client_secret-e-azure_tenant_id">azure_client_id, azure_client_secret e azure_tenant_id<a class="headerlink" href="#azure_client_id-azure_client_secret-e-azure_tenant_id" title="Permanent link">&para;</a></h3>
+<p>Para criar um novo Service Principal:</p>
+<div class="highlight"><pre><span></span><code>az ad sp create-for-rbac --name &quot;sp-nome-exemplo&quot; --role Contributor --scopes /subscriptions/&lt;subscription_id&gt;  
+</code></pre></div>
+<p>O retorno incluirá:</p>
+<ul>
+<li><code>appId</code> → <code>azure_client_id</code>  </li>
+<li><code>password</code> → <code>azure_client_secret</code>  </li>
+<li><code>tenant</code> → <code>azure_tenant_id</code>  </li>
+</ul>
+<p>⚠️ <strong>Importante</strong>: guarde esses dados com segurança e <strong>nunca versiona</strong> esse arquivo no Git (o projeto ja possui um .gitigore com esse arquivo em cada pasta).</p>
+<hr />
+<h2 id="consideracoes-finais">Considerações finais<a class="headerlink" href="#consideracoes-finais" title="Permanent link">&para;</a></h2>
+<ul>
+<li>O arquivo <code>terraform.tfvars</code> na raiz deve conter as variáveis de configuração utilizadas por todos os módulos.  </li>
+<li>Para destruir recursos, entre em cada módulo e rode:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>terraform destroy -var-file=&quot;../terraform.tfvars&quot;  
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "content.code.copy", "content.action.edit", "content.tabs.link", "search.highlight", "search.share", "navigation.expand"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
