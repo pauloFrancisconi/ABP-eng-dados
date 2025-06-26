@@ -128,10 +128,10 @@ formas_pagamento_reais = [
 ]
 
 # Quantidades
-n_clientes = 10000
+n_clientes = 20000
 n_vendedores = 1000
 n_produtos = 30000
-n_enderecos = 10000
+n_enderecos = 20000
 n_pedidos = 25000
 n_itens_pedido = 40000
 n_pagamentos = 25000
